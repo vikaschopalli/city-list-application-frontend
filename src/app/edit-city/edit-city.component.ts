@@ -38,6 +38,11 @@ export class EditCityComponent implements OnInit {
       this.router.navigateByUrl('login');
     }
 
+    if (!this.hasEditAccess) {
+      this.authService.logout();
+      this.router.navigateByUrl('login');
+    }
+
     this.message = '';
     this.getCity(this.route.snapshot.params['id']);
   }
@@ -51,6 +56,8 @@ export class EditCityComponent implements OnInit {
         },
         error => {
           console.log(error);
+          this.authService.logout();
+          this.router.navigateByUrl('login');
         });
   }
 
